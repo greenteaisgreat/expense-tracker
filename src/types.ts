@@ -3,3 +3,7 @@ export interface Transaction {
   text: string;
   amount: number;
 }
+
+export type Total = number;
+export type Income = number;
+export type Expense = number;
