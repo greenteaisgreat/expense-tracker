@@ -5,6 +5,10 @@ import type { Transaction } from "@/types";
 const props = defineProps<{
   transactions: Transaction[];
 }>();
+
+const emit = defineEmits<{
+  deleteTransaction: [Transaction["id"]];
+}>();
 </script>
 
 <template>
@@ -17,7 +21,13 @@ const props = defineProps<{
     >
       {{ transaction.text
       }}<span
-        >{{ transaction.amount }}<button class="delete-btn">x</button></span
+        >{{ transaction.amount
+        }}<button
+          @click="emit('deleteTransaction', transaction.id)"
+          class="delete-btn"
+        >
+          x
+        </button></span
       >
     </li>
   </ul>
