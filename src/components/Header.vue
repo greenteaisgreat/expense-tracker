@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div></div>
+  <h2>Expense Tracker</h2>
 </template>
 
 <style scoped></style>
