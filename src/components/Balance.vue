@@ -8,5 +8,5 @@ const props = defineProps<{
 
 <template>
   <h4>Your Balance</h4>
-  <h1 class="balance">${{ props.total }}</h1>
+  <h1 class="balance">${{ props.total.toFixed(2) }}</h1>
 </template>
