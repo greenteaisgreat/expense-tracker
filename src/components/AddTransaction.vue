@@ -3,9 +3,13 @@ import { ref } from "vue";
 import type { Transaction } from "@/types";
 import { useToast } from "vue-toastification";
 
+// for focusing back to transaction text input after submission
+const textInput = ref<HTMLInputElement | null>(null);
+
 const transactionText = ref<Transaction["text"]>("");
-// undefined type to allow for reset back to placeholder for amount input
+// null type to allow for reset back to placeholder for amount input
 const transactionAmount = ref<Transaction["amount"] | null>(null);
+
 const toast = useToast();
 
 const emit = defineEmits<{
@@ -26,6 +30,7 @@ function formSubmitted() {
     );
     transactionText.value = "";
     transactionAmount.value = null;
+    textInput.value?.focus();
   }
 }
 </script>
@@ -39,6 +44,7 @@ function formSubmitted() {
         type="text"
         id="text"
         placeholder="Enter text..."
+        ref="textInput"
       />
     </div>
     <div class="form-control">
