@@ -16,7 +16,7 @@ const props = defineProps<{
     <div>
       <h4>Expense</h4>
       <p id="money-minus" class="money minus">
-        -${{ props.expense.toFixed(2) }}
+        ${{ props.expense.toFixed(2) }}
       </p>
     </div>
   </div>
