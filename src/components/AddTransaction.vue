@@ -4,7 +4,8 @@ import type { Transaction } from "@/types";
 import { useToast } from "vue-toastification";
 
 const transactionText = ref<Transaction["text"]>("");
-const transactionAmount = ref<Transaction["amount"]>();
+// undefined type to allow for reset back to placeholder for amount input
+const transactionAmount = ref<Transaction["amount"] | null>(null);
 const toast = useToast();
 
 const emit = defineEmits<{
@@ -24,7 +25,7 @@ function formSubmitted() {
       `Transaction for ${transactionText.value} added at $${transactionAmount.value}`,
     );
     transactionText.value = "";
-    transactionAmount.value = 0;
+    transactionAmount.value = null;
   }
 }
 </script>
