@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import type { Transaction } from "@/types";
+import { useToast } from "vue-toastification";
 
 const transactionText = ref<Transaction["text"]>("");
 const transactionAmount = ref<Transaction["amount"]>();
+const toast = useToast();
 
 const emit = defineEmits<{
   addTransaction: [
@@ -13,8 +15,14 @@ const emit = defineEmits<{
 }>();
 
 function formSubmitted() {
-  if (transactionText.value.trim() && transactionAmount.value) {
+  if (!transactionText.value || !transactionAmount.value) {
+    toast.error("Please provide a value for the amount and transaction");
+    return;
+  } else if (transactionText.value.trim() && transactionAmount.value) {
     emit("addTransaction", transactionText.value, transactionAmount.value);
+    toast.success(
+      `Transaction for ${transactionText.value} added at $${transactionAmount.value}`,
+    );
     transactionText.value = "";
     transactionAmount.value = 0;
   }
