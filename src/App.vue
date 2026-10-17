@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
 import type { Transaction, Total, Income, Expense } from "./types.ts";
 
 import Header from "./components/Header.vue";
@@ -8,14 +8,17 @@ import IncomeExpenses from "./components/IncomeExpenses.vue";
 import TransactionList from "./components/TransactionList.vue";
 import AddTransaction from "./components/AddTransaction.vue";
 
+onMounted(() => {
+  const savedTransactions = localStorage.getItem("transactions");
+  // retrieve stored transactions, if they exist
+  if (savedTransactions) {
+    transactions.value = JSON.parse(savedTransactions);
+  }
+});
+
 const id = ref(0);
 
-const transactions = ref<Transaction[]>([
-  { id: id.value++, text: "Candy", amount: 2.35 },
-  { id: id.value++, text: "Boat", amount: -12.55 },
-  { id: id.value++, text: "Gum", amount: 56.35 },
-  { id: id.value++, text: "Weezel", amount: -20.72 },
-]);
+const transactions = ref<Transaction[]>([]);
 
 const total = computed<Total>(() => {
   return transactions.value.reduce(
